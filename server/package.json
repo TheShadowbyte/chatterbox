@@ -4,12 +4,23 @@
   "description": "A real-time chat app with a React frontend and a Node backend",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "dev": "nodemon server.js"
   },
+  "keywords": [
+    "react",
+    "node",
+    "socket.io",
+    "chat"
+  ],
   "author": "TheShadowbyte",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "socket.io": "^2.3.0"
-  }
+    "socket.io": "^4.7.2"
+  },
+    "devDependencies": {
+        "nodemon": "^3.0.1"
+    }
 }
