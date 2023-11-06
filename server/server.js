@@ -2,6 +2,14 @@ const express = require('express');
 const http = require('http');
 const socketIO = require('socket.io');
 const cors = require('cors');
+const connectDB = require('./config/database');
+const userRoutes = require('./routes/users');
+const messageRoutes = require('./routes/messages');
+const router = express.Router();
+const authenticate = require('./middleware/authenticate');
+require('dotenv').config();
+
+connectDB();
 
 const app = express();
 const server = http.createServer(app);
@@ -17,6 +25,21 @@ app.use(cors());
 
 app.get("/api", (req, res) => {
     res.json({ message: "Hello from server!" });
+});
+
+app.use('/api/users', userRoutes);
+app.use('/api/messages', messageRoutes);
+
+// Initialize chat session (HTTP GET request)
+router.get('/chat', authenticate, (req, res) => {
+    // The user is authenticated at this point, and `req.user` contains the user details.
+    // You can generate a one-time token or ticket for the user to establish a WebSocket connection.
+
+    // This token should be short-lived and tied to the user's session.
+    const oneTimeToken = generateOneTimeToken(req.user.id); // Implement this function to generate a token.
+
+    // Send the one-time token back to the client
+    res.json({ oneTimeToken });
 });
 
 io.on('connection', (socket) => {
