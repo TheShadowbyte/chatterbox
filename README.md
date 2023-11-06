@@ -48,14 +48,14 @@ npm install
 
 ### Run the Application
 
-For the frontend:
+For the frontend (starting from the root directory):
 
 ```bash
 cd client
 npm start
 ```
 
-For the backend:
+For the backend (starting from the root directory):
 
 ```bash
 cd server
@@ -68,11 +68,11 @@ The frontend will be available on http://localhost:3000 and the backend on http:
 
 We welcome contributions from everyone. Here's how you can contribute:
 
--Fork the Project
--Create your Feature Branch (git checkout -b feature/AmazingFeature)
--Commit your Changes (git commit -m 'Add some AmazingFeature')
--Push to the Branch (git push origin feature/AmazingFeature)
--Open a Pull Request
+- Fork the Project
+- Create your Feature Branch (git checkout -b feature/AmazingFeature)
+- Commit your Changes (git commit -m 'Add some AmazingFeature')
+- Push to the Branch (git push origin feature/AmazingFeature)
+- Open a Pull Request
 
 ## License
 
