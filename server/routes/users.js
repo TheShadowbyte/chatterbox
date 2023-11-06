@@ -19,10 +19,6 @@ router.post('/register', async (req, res) => {
             password: req.body.password
         });
 
-        // Hash password
-        const salt = await bcrypt.genSalt(10);
-        user.password = await bcrypt.hash(req.body.password, salt);
-
         await user.save();
 
         // Create and return the JWT token
@@ -49,7 +45,9 @@ router.post('/register', async (req, res) => {
 
 // Authenticate user and get token (Login)
 router.post('/login', async (req, res) => {
+
     try {
+
         const { username, password } = req.body;
 
         // Check for user
@@ -60,8 +58,11 @@ router.post('/login', async (req, res) => {
 
         // Compare password
         const isMatch = await bcrypt.compare(password, user.password);
+
         if (!isMatch) {
-            return res.status(400).json({ msg: 'Invalid Credentials' });
+            return res.status(400).json({
+                msg: 'Invalid Credentials'
+            });
         }
 
         // Create and return the JWT token

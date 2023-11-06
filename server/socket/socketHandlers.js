@@ -1,30 +1,39 @@
+// socketHandlers.js
 const socketIo = require('socket.io');
-const server = require('http').createServer(app);
-const io = socketIo(server);
 
-io.use((socket, next) => {
-    // Assume the token is passed in the query string when establishing the WebSocket connection
-    const token = socket.handshake.query.token;
+// This function should be imported from wherever you define it
+const { validateOneTimeToken } = require('../helpers/authHelpers');
 
-    // Validate the one-time token
-    validateOneTimeToken(token, (err, user) => {
-        if (err) {
-            return next(new Error('Authentication error'));
-        }
+module.exports = (server) => {
+    const io = socketIo(server);
 
-        // If the token is valid, proceed with the connection
-        socket.user = user; // Attach the user information to the socket session
-        next();
+    io.use((socket, next) => {
+        const token = socket.handshake.query.token;
+        validateOneTimeToken(token)
+            .then((user) => {
+                if (!user) {
+                    return next(new Error('Authentication error'));
+                }
+                socket.user = user;
+                next();
+            })
+            .catch((err) => next(new Error('Authentication error')));
     });
-});
 
-// Implement this function to validate the token.
-function validateOneTimeToken(token, callback) {
-    // Logic to validate the token.
-    // If valid, call callback(null, user).
-    // If not valid, call callback(new Error('invalid token')).
-}
+    io.on('connection', (socket) => {
+        console.log('A user connected', socket.user);
 
-io.on('connection', (socket) => {
-    // Socket now has a `socket.user` property with the user's information if authenticated
-});
+        // Set up all event listeners for this socket
+        socket.on('chat message', (msg) => {
+            io.emit('chat message', { user: socket.user, msg });
+        });
+
+        socket.on('disconnect', () => {
+            console.log('User disconnected');
+        });
+
+        // ... more event listeners as needed
+    });
+
+    return io;
+};

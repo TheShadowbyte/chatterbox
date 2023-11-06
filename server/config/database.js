@@ -7,8 +7,6 @@ const dbURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/chatApp';
 const options = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
 };
 
 // Function to connect to the database

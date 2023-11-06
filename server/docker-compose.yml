@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongo_chat_app
+    environment:
+      MONGO_INITDB_DATABASE: chatApp # This will create a database named 'chatApp'
+    ports:
+      - "27017:27017" # Maps the default MongoDB port to the same port on the host
+    volumes:
+      - mongo_data_container:/data/db # Persists data across container reboots
+
+volumes:
+  mongo_data_container: # Named volume for storing database data
