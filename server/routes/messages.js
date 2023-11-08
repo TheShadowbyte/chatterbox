@@ -3,7 +3,7 @@ const Message = require('../models/Message');
 const router = express.Router();
 
 // Get messages
-router.get('/', async (req, res) => {
+router.get('/get', async (req, res) => {
     try {
         const messages = await Message.find().sort({ createdAt: -1 });
         res.json(messages);
@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
 });
 
 // Post a new message
-router.post('/', async (req, res) => {
+router.post('/post', async (req, res) => {
     try {
         const newMessage = new Message({
             sender: req.body.sender, // Sender user ID

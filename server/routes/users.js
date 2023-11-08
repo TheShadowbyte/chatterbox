@@ -4,6 +4,27 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const router = express.Router();
 
+// Get user by id
+router.get('/:id', async (req, res) => {
+    try {
+
+        const user = await User.findById(req.params.id);
+
+        // Create a response that includes the id, username and createdAt properties
+        const response = {
+            id: user._id,
+            username: user.username,
+            createdAt: user.createdAt
+        };
+
+        res.json(response);
+
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error');
+    }
+});
+
 // Register a new user
 router.post('/register', async (req, res) => {
     try {

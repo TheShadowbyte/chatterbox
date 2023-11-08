@@ -5,6 +5,7 @@ const cors = require('cors');
 // const router = express.Router();
 
 const userRoutes = require('./routes/users');
+const chatRoutes = require('./routes/chats');
 const messageRoutes = require('./routes/messages');
 const validateToken = require('./routes/validate-token');
 
@@ -30,6 +31,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/users', userRoutes);
+app.use('/api/chats', chatRoutes);
 app.use('/api/messages', messageRoutes);
 app.use('/api', validateToken);
 

@@ -15,7 +15,7 @@ const MessageSchema = new mongoose.Schema({
         ref: 'Chat',
         required: true
     },
-    createdAt: {
+    sentAt: {
         type: Date,
         default: Date.now
     }
