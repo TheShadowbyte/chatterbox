@@ -25,6 +25,20 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+// Get usernames from a list of user ids
+router.post('/usernames', async (req, res) => {
+    try {
+
+        const usernames = await User.find({ _id: { $in: req.body.userIds } }).select('username');
+
+        res.json(usernames);
+
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error');
+    }
+});
+
 // Register a new user
 router.post('/register', async (req, res) => {
     try {

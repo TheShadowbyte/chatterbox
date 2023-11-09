@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import ChatForm from "./ChatForm";
+import ChatForm from "./CurrentChat/ChatForm";
 import ChatNew from "./ChatNew";
-import ActiveChats from "./ActiveChats";
+import ActiveChatsList from "./ActiveChats/ActiveChatsList";
 
-function Chat(props) {
+function ChatPage(props) {
 
     // const { isAuthenticated, setIsAuthenticated } = useAuth();
 
@@ -13,11 +13,11 @@ function Chat(props) {
     const [messages] = useState([]);
 
     return (
-        <div className="chat-container">
+        <div className="chat-page-container">
             <ChatNew server_url={props.server_url} />
-            <ActiveChats />
+            <ActiveChatsList server_url={props.server_url} />
         </div>
     );
 }
 
-export default Chat;
+export default ChatPage;

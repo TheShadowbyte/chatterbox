@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react";
+import {getCurrentUser} from "../helpers/userHelpers";
 
 const ChatNew = (props) => {
 
@@ -12,25 +13,27 @@ const ChatNew = (props) => {
     const [correspondents, setCorrespondents] = useState([]);
     const [username, setUsername] = useState('');
 
-    const getCurrentUser = async () => {
-
-            try {
-
-                const response = await fetch(props.server_url + '/api/users/' + userJson.user.id, {
-                    method: 'GET',
-                    headers: { 'Content-Type': 'application/json' },
-                });
-
-                return await response.json();
-
-            } catch (error) {
-                // If there's an error during fetch, handle it here (e.g., show an error message)
-                console.error('Error during API call', error);
-            }
-
-    };
+    // const getCurrentUser = async () => {
+    //
+    //         try {
+    //
+    //             const response = await fetch(props.server_url + '/api/users/' + userJson.user.id, {
+    //                 method: 'GET',
+    //                 headers: { 'Content-Type': 'application/json' },
+    //             });
+    //
+    //             return await response.json();
+    //
+    //         } catch (error) {
+    //             // If there's an error during fetch, handle it here (e.g., show an error message)
+    //             console.error('Error during API call', error);
+    //         }
+    //
+    // };
 
     const createNewChat = async (correspondents) => {
+
+        console.log('server_url: ' + props.server_url);
 
         try {
             const response = await fetch(props.server_url + '/api/chats/new', {
@@ -55,7 +58,7 @@ const ChatNew = (props) => {
 
         try {
 
-            getCurrentUser().then((user) => {
+            getCurrentUser(props.server_url, userJson.user.id).then((user) => {
                 setCurrentUser(user.username);
                 setCorrespondents([user.username]);
             }).then(() => {

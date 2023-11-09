@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ChatForm from "./ChatForm";
+import ChatForm from "./CurrentChat/ChatForm";
 
 function ChatStart(props) {
 

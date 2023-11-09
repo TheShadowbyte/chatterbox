@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// Chat schema
+// ChatPage schema
 const ChatSchema = new Schema({
     name: String,
     correspondents: [{ type: Schema.Types.ObjectId, ref: 'User' }],
@@ -10,7 +10,7 @@ const ChatSchema = new Schema({
 
 // Message schema
 // const MessageSchema = new Schema({
-//     chat: { type: Schema.Types.ObjectId, ref: 'Chat' },
+//     chat: { type: Schema.Types.ObjectId, ref: 'ChatPage' },
 //     user: { type: Schema.Types.ObjectId, ref: 'User' },
 //     messageText: String,
 //     sentAt: { type: Date, default: Date.now }

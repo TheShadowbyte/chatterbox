@@ -22,7 +22,7 @@ router.post('/new', async (req, res) => {
         let chat = await Chat.findOne({ correspondents: users });
 
         if (chat) {
-            return res.status(400).json({ msg: 'Chat already exists' });
+            return res.status(400).json({ msg: 'ChatPage already exists' });
         }
 
         chat = new Chat({
@@ -38,6 +38,36 @@ router.post('/new', async (req, res) => {
         console.error(err.message);
         res.status(500).send('Server error');
     }
+});
+
+router.get('/all/:id', async (req, res) => {
+    try {
+
+        const user = await User.findById(req.params.id);
+
+        let chats = await Chat.find({ correspondents: user });
+
+        res.json(chats);
+
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error');
+    }
+});
+
+router.get('/:id', async (req, res) => {
+
+    try {
+
+        const chat = await Chat.findById(req.params.id);
+
+        res.json(chat);
+
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error');
+    }
+
 });
 
 module.exports = router;

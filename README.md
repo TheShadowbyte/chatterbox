@@ -6,7 +6,7 @@ ChatterBox is a live chat application that enables real-time conversations with 
 
 - **Real-Time Messaging**: Engage in live chat without any delays.
 - **User Authentication**: Securely sign in to access chat rooms.
-- **Scalable Chat Rooms**: Join various chat rooms catering to different topics.
+- **Scalable ChatPage Rooms**: Join various chat rooms catering to different topics.
 - **Persistent Message History**: Never lose track of your conversations.
 - **Typing Indicators**: Know when someone is actively writing a message.
 - **Read Receipts**: Confirm that your messages have been read.
