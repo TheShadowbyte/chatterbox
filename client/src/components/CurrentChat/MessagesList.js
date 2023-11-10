@@ -12,7 +12,23 @@ const MessagesList = (props) => {
     }, [props.chat_id, props.correspondents, props.latest_messages, props.local_user]);
 
     function formatDateTime(dateTimeString) {
-        const date = new Date(dateTimeString);
+
+        const correctedDateTimeString = dateTimeString.replace(
+            /T(\d):|:(\d)(?=:)|:(\d)\./g,
+            (match, p1, p2, p3) => {
+                // p1 is for hour, p2 is for minute, and p3 is for second
+                if (p1) return `T0${p1}:`; // Correct hour
+                if (p2) return `:0${p2}:`; // Correct minute
+                if (p3) return `:0${p3}.`; // Correct second
+                return match;
+            }
+        );
+
+        const date = new Date(correctedDateTimeString);
+
+        if (isNaN(date.getTime())) {
+            throw new Error('Invalid date: ' + correctedDateTimeString);
+        }
 
         // Create options for Intl.DateTimeFormat to display date and time in desired format
         const dateOptions = { year: 'numeric', month: '2-digit', day: '2-digit' };

@@ -83,6 +83,7 @@ const ChatNew = (props) => {
         if (correspondents.length > 1) {
             createNewChat(correspondents).then((chat) => {
                 console.log(chat);
+                window.location.href = '/chat/' + chat._id;
             });
         }
     }, [currentUser]);

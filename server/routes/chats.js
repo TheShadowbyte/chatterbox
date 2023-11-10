@@ -22,11 +22,14 @@ router.post('/new', async (req, res) => {
         let chat = await Chat.findOne({ correspondents: users });
 
         if (chat) {
-            return res.status(400).json({ msg: 'ChatPage already exists' });
+            return res.status(400).json({
+                msg: 'ChatPage already exists',
+                chatId: chat._id
+            });
         }
 
         chat = new Chat({
-            name: 'Test',
+            // name: 'Test',
             correspondents: users
         });
 
