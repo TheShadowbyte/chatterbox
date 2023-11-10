@@ -47,7 +47,7 @@ const ActiveChatsList = (props) => {
             <h1>Active Chats</h1>
 
             {chats.map((chat) => (
-                <ActiveChatItem key={chat._id} name={chat.name} correspondents={chat.correspondents} server_url={props.server_url} />
+                <ActiveChatItem key={chat._id} chat_id={chat._id} name={chat.name} correspondents={chat.correspondents} server_url={props.server_url} />
             ))}
 
         </div>

@@ -24,6 +24,12 @@
     margin-right: 5px;
 }
 
+.message-item .timestamp {
+    font-size: 12px;
+    float: right;
+    color: #d1d1d1;
+}
+
 .message-item:last-child {
     margin-bottom: 20px;
 }

@@ -35,7 +35,7 @@ const ActiveChatItem = (props) => {
             <h2>{props.name}</h2>
             <h3>
                 Chat with {correspondents.map((correspondent) => (
-                    <span>{correspondent}</span>
+                    <a href={`/chat/${props.chat_id}`}><span>{correspondent}</span></a>
                 ))}
             </h3>
         </div>
