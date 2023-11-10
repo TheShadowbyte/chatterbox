@@ -4,6 +4,7 @@ const http = require('http');
 const cors = require('cors');
 // const router = express.Router();
 
+
 const userRoutes = require('./routes/users');
 const chatRoutes = require('./routes/chats');
 const messageRoutes = require('./routes/messages');
@@ -70,5 +71,75 @@ app.get('/', (req, res) => {
 //     res.json({ oneTimeToken });
 // });
 
+
+
+const WebSocket = require('ws');
+
+const wss = new WebSocket.Server({ port: 8088 });
+
+wss.on('connection', function connection(ws) {
+    console.log('A new client connected!');
+
+    // Optionally, send a message history or a welcome message to the connected client
+    // ws.send(JSON.stringify({ type: 'history', messages /* Fetch and send message history */ }));
+
+    ws.on('message', function incoming(message) {
+        console.log('received: %s', message);
+
+        // Broadcast the message to all connected clients, including the sender
+        wss.clients.forEach(function each(client) {
+            if (client.readyState === WebSocket.OPEN) {
+                console.log('Broadcasting message to all clients');
+
+                client.send(message);
+
+            }
+        });
+    });
+
+    ws.on('close', function close() {
+        console.log('Client disconnected');
+    });
+
+    ws.on('error', function error(e) {
+        console.error('WebSocket error observed:', e);
+    });
+
+    // console.log('A client connected');
+    //
+    // ws.on('message', function incoming(message) {
+    //     console.log('received: %s', message);
+    // });
+    //
+    // ws.on('close', function close(code, reason) {
+    //     console.log('Connection closed', { code, reason });
+    // });
+    //
+    // ws.on('error', function error(e) {
+    //     console.error('WebSocket error:', e);
+    // });
+
+
+
+});
+
+console.log(`WebSocket server is running on ws://localhost:8088`);
+
+
+
+
+
+
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+
+
+
+
+
+
+
+
+
+

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 function ChatForm(props) {
 
@@ -35,6 +35,7 @@ function ChatForm(props) {
     const handleSendMessageSubmit = (e) => {
         e.preventDefault();
         // When the form is submitted, invoke the callback with the new message
+        props.sendMessage(message);
         onSendMessage(message);
         setMessage('');
     };

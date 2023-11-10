@@ -1,0 +1,59 @@
+/* CSS for a messages list in a React app */
+
+.message-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.message-item {
+    background-color: rgba(209, 209, 209, 0.64);
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 40%;
+}
+
+.message-item p {
+    margin-bottom: 5px;
+}
+
+.message-item .username {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.message-item:last-child {
+    margin-bottom: 20px;
+}
+
+.message-text {
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+.message-sender {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Style for different message types, you can customize these */
+.sent-message {
+    background-color: #4caf50;
+    color: #fff;
+    float: right;
+    clear: both;
+}
+
+.received-message {
+    background-color: #2196f3;
+    color: #fff;
+    float: left;
+    clear: both;
+}
+
+.system-message {
+    background-color: #ccc;
+    color: #333;
+}
