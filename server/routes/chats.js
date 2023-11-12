@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const {Chat} = require("../models/Chat");
+const {Message} = require("../models/Message");
 const router = express.Router();
 
 // Register a new user
@@ -34,6 +35,15 @@ router.post('/new', async (req, res) => {
         });
 
         await chat.save().then(() => {
+
+            const firstMessage = new Message({
+                sender: users[0],
+                content: req.body.message,
+                chat: chat._id,
+                sentAt: Date.now()
+            });
+
+            firstMessage.save();
             res.json(chat);
         });
 

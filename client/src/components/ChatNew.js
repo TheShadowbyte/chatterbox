@@ -12,36 +12,28 @@ const ChatNew = (props) => {
     const [currentUser, setCurrentUser] = useState('');
     const [correspondents, setCorrespondents] = useState([]);
     const [username, setUsername] = useState('');
+    const [message, setMessage] = useState('');
 
-    // const getCurrentUser = async () => {
-    //
-    //         try {
-    //
-    //             const response = await fetch(props.server_url + '/api/users/' + userJson.user.id, {
-    //                 method: 'GET',
-    //                 headers: { 'Content-Type': 'application/json' },
-    //             });
-    //
-    //             return await response.json();
-    //
-    //         } catch (error) {
-    //             // If there's an error during fetch, handle it here (e.g., show an error message)
-    //             console.error('Error during API call', error);
-    //         }
-    //
-    // };
-
-    const createNewChat = async (correspondents) => {
+    const createNewChat = async (correspondents, message) => {
 
         console.log('server_url: ' + props.server_url);
 
         try {
-            const response = await fetch(props.server_url + '/api/chats/new', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ correspondents }),
-            });
-            return await response.json();
+
+            const payload = JSON.stringify({ correspondents, message });
+
+            if (payload.length > 0) {
+                const response = await fetch(props.server_url + '/api/chats/new', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: payload,
+                });
+                return await response.json();
+            }
+            else {
+                alert('Error: correspondent and message must be provided');
+            }
+
         } catch (error) {
             console.error('Error during API call', error);
         }
@@ -68,6 +60,7 @@ const ChatNew = (props) => {
                         setCorrespondents(updatedCorrespondents);
                     });
                 }
+                setMessage(message);
             });
 
         } catch (error) {
@@ -79,10 +72,9 @@ const ChatNew = (props) => {
 
     useEffect(() => {
 
-        // Check if handleStartNewChat has been called
-        if (correspondents.length > 1) {
-            createNewChat(correspondents).then((chat) => {
-                console.log(chat);
+        if (correspondents.length > 1 && message.length > 0 && currentUser.length > 0) {
+            createNewChat(correspondents, message).then((chat) => {
+                // console.log(chat);
                 window.location.href = '/chat/' + chat._id;
             });
         }
@@ -101,7 +93,13 @@ const ChatNew = (props) => {
                     placeholder="Enter a correspondent's username"
                 />
                 <label htmlFor="message">Message</label>
-                <input type="text" name="message" />
+                <input
+                    type="text"
+                    name="message"
+                    value={message}
+                    onChange={(event) => setMessage(event.target.value)}
+                    placeholder="Enter a message"
+                />
                 <button type="submit">Start Chat</button>
             </form>
         </div>
