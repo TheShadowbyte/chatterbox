@@ -1,4 +1,4 @@
-# ChatterBox
+# ChatterBox (NOTE: THIS PROJECT IS STILL IN DEVELOPMENT, DO NOT USE)
 
 ChatterBox is a live chat application that enables real-time conversations with a responsive React.js frontend and a Node.js backend, designed for quick and engaging user interactions.
 
